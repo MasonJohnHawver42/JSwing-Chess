@@ -1,6 +1,4 @@
 
-import BoardGame.*;
-
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -20,12 +18,6 @@ public class MineSweeper extends Game
     protected void init() {
         board = new MSBoard(this, 10);
         add(board);
-    }
-    
-    
-    public static void main(String[] args) {
-        Game ms = new MineSweeper();
-        ms.play();
     }
 
     ///
@@ -139,4 +131,9 @@ public class MineSweeper extends Game
             public void terminate() { super.terminate(); }
           }
         }
+
+    public static void main(String[] args) {
+        Game ms = new MineSweeper();
+        ms.play();
+    }
 }

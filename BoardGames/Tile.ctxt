@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Tile
+comment1.params=b\ r\ c
+comment1.target=Tile(Board,\ int,\ int)
+comment2.params=
+comment2.target=Tile.State\ initState()
+comment3.params=new_state
+comment3.target=void\ setState(Tile.State)
+comment4.params=
+comment4.target=java.util.LinkedList\ getNeighbors()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6
