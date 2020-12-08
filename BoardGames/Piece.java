@@ -1,6 +1,6 @@
 
 
-public class Piece
+abstract public class Piece
 {
     
 }
