@@ -21,6 +21,12 @@ public class MineSweeper extends Game
         board = new MSBoard(this, 10);
         add(board);
     }
+    
+    
+    public static void main(String[] args) {
+        Game ms = new MineSweeper();
+        ms.play();
+    }
 
     ///
     /// Board
@@ -133,9 +139,4 @@ public class MineSweeper extends Game
             public void terminate() { super.terminate(); }
           }
         }
-
-    public static void main(String[] args) {
-        Game ms = new MineSweeper();
-        ms.play();
-    }
 }
