@@ -11,5 +11,5 @@ public class ChessBoard extends Board<Chess>
         super(game, 8, 8);
     }
     
-    public Tile initTile(int i, int j) { return null; }
+    public Tile initTile(int i, int j) { return new ChessTile(this, i, j, null, 1); }
 }
