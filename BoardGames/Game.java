@@ -9,8 +9,6 @@ abstract public class Game extends JPanel {
         init();
     }
 
-    abstract protected void init();
-
     public final void play() {
         JFrame frame = new JFrame(name);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
