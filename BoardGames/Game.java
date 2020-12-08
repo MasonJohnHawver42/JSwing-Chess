@@ -6,7 +6,6 @@ abstract public class Game extends JPanel {
 
     public Game(String n) {
         name = n;
-        init();
     }
 
     public final void play() {
