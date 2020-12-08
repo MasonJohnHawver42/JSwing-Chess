@@ -53,13 +53,13 @@ abstract public class Tile<B extends Board> extends JButton {
     return "Tile: [" + Integer.toString(row) + " , " + Integer.toString(col) + "]";
   }
 
-  abstract public class State<T extends Tile> implements ActionListener {
+  public class State<T extends Tile> implements ActionListener {
     public State(T t) { tile = t; terminated = false; }
 
     public final void actionPerformed(ActionEvent e) { update(e); }
 
     public void start() { tile.addActionListener(this); }
-    abstract public void update(ActionEvent e);
+    public void update(ActionEvent e) {}
     public void terminate() { tile.removeActionListener(this); terminated = true; }
 
     protected T tile;
