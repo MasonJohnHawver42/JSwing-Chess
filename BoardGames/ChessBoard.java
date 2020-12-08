@@ -4,6 +4,8 @@ public class ChessBoard extends Board<Chess>
     public ChessBoard(Chess game) 
     {
       super(game, 8, 8);
+      
+      placePiece(new Pawn(Chess.dark), 1, 1);
     }
     
     public Tile initTile(int i, int j) 
@@ -18,5 +20,9 @@ public class ChessBoard extends Board<Chess>
         n = false;  
       }
       return new ChessTile(this, i, j, n);
+    }
+    
+    public void placePiece(Piece p, int i, int j) {
+        ((ChessTile)getTile(i, j)).setPiece(p);
     }
 }
