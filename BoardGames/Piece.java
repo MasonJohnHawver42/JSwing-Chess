@@ -1,18 +1,21 @@
 //Josh
-import javax.swing.*;
-import java.awt.*;
 import java.util.*;
-import java.awt.event.*;
-abstract public class Piece<ChessBoard> extends JButton
+
+abstract public class Piece
 {
-    public Piece(ChessBoard cb, int x, int y, Boolean b)
+    public Piece(Boolean c)
     {
-        super(cb, y, x);
-        if(b==true)
-            board.getTile(x,y).setBackground(Color.BLACK);
-        else
-            board.getTile(x,y).setBackground(Color.WHITE);
+        color = c;
+        name = "NULL";
     }
     
-    abstract protected Board moves(int x, int y);
+    public void move(ChessTile t) { t.setPiece(this); }
+    
+    public String getName() { return name; }
+    
+    abstract protected LinkedList<ChessTile> moves();
+    
+    protected String name;
+    protected Boolean color;
+    protected ChessTile tile;
 }
