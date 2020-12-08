@@ -7,5 +7,9 @@ public class Pawn extends Piece
         name = "P";
     }
     
-    protected LinkedList<ChessTile> moves(ChessTile tile) { return null; }
+    protected LinkedList<ChessTile> moves(ChessTile tile) { 
+        LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
+        
+        return moves;
+    }
 }
