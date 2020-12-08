@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=ChessBoard
-comment0.text=\n\ Write\ a\ description\ of\ class\ ChessBoard\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
-comment1.params=game
-comment1.target=ChessBoard(Chess)
-comment2.params=i\ j
-comment2.target=Tile\ initTile(int,\ int)
-numComments=3
