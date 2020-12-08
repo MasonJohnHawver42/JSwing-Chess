@@ -3,10 +3,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
-abstract public class Piece<B extends Board> extends JButton
+abstract public class Piece<ChessBoard> extends JButton
 {
-    public Piece(B board, int x, int y, Boolean b)
+    public Piece(ChessBoard cb, int x, int y, Boolean b)
     {
+        super(cb, y, x);
         if(b==true)
             board.getTile(x,y).setBackground(Color.BLACK);
         else
