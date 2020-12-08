@@ -1,3 +1,6 @@
+
+// Hey I Just Moved this into the floder, thats where we should store all code
+
 public class ChessBoard extends Board<Chess>
 {
     public ChessBoard(Chess game) 
