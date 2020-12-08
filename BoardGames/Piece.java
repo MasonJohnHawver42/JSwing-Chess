@@ -16,3 +16,26 @@ abstract public class Piece<ChessBoard> extends JButton
     
     abstract protected Board moves(int x, int y);
 }
+
+
+/* This is how I did it so It wokered with the rest of the code
+import java.util.*;
+
+abstract public class Piece
+{
+    public Piece(Boolean c)
+    {
+        color = c;
+        name = "NULL";
+    }
+    
+    public void move(ChessTile t) { t.setPiece(this); }
+    
+    public String getName() { return name; }
+    
+    abstract protected LinkedList<ChessTile> moves(ChessTile tile);
+    
+    protected String name;
+    protected Boolean color;
+}
+*/
