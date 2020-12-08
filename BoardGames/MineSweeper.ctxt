@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=MineSweeper
-comment1.params=
-comment1.target=MineSweeper()
-comment2.params=
-comment2.target=void\ init()
-comment3.params=args
-comment3.target=void\ main(java.lang.String[])
-numComments=4
