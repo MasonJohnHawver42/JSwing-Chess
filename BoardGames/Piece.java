@@ -1,4 +1,5 @@
 //Josh
+/*
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -18,7 +19,7 @@ abstract public class Piece<ChessBoard> extends JButton
 }
 
 
-/* This is how I did it so It wokered with the rest of the code
+*/ // This is how I did it so It wokered with the rest of the code
 import java.util.*;
 
 abstract public class Piece
@@ -38,4 +39,3 @@ abstract public class Piece
     protected String name;
     protected Boolean color;
 }
-*/
