@@ -1,2 +1,2 @@
-# Chess
-Chess - school proj
+# Board Games
+school proj
