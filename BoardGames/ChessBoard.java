@@ -17,6 +17,6 @@ public class ChessBoard extends Board<Chess>
       {
         n = false;  
       }
-      return new ChessTile(this, i, j, null, n);
+      return new ChessTile(this, i, j, n);
     }
 }
