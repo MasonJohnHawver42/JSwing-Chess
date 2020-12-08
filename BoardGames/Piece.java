@@ -13,9 +13,8 @@ abstract public class Piece
     
     public String getName() { return name; }
     
-    abstract protected LinkedList<ChessTile> moves();
+    abstract protected LinkedList<ChessTile> moves(ChessTile tile);
     
     protected String name;
     protected Boolean color;
-    protected ChessTile tile;
 }
