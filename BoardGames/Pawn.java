@@ -10,6 +10,13 @@ public class Pawn extends Piece
     protected LinkedList<ChessTile> moves(ChessTile tile) { 
         LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
         
+        moves.add(tile.getNeighbor(0,1));
         return moves;
+        /*
+        could also just do:
+        
+        return tile.getNeighbor(0,1);
+        
+        */
     }
 }
