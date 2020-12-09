@@ -43,6 +43,10 @@ abstract public class Tile<B extends Board> extends JButton {
     return n;
   }
   
+  public <T extends Tile<B>> T getNeighbor(int r, int c) { 
+      return (T)board.getTile(row + r, col + c);
+  }
+  
   public B getBoard() { return board; }
 
   protected B board;
