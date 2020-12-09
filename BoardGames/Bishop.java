@@ -1,11 +1,18 @@
+package BoardGames;
 
-/**
- * Write a description of class Bishop here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+import java.util.*;
 public class Bishop extends Piece
 {
+    public Bishop(Boolean color) 
+    {
+        super(color);
+        name = "B";
+    }
     
+    protected LinkedList<ChessTile> moves(ChessTile tile) 
+    { 
+      LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
+        
+      return moves;
+    }
 }
