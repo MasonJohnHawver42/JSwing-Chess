@@ -11,8 +11,6 @@ public class King extends Piece
     
     protected LinkedList<ChessTile> moves(ChessTile tile) 
     { 
-      LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
-        
-      return moves;
+      return tile.getNeighbors;
     }
 }
