@@ -1,11 +1,19 @@
+package BoardGames;
 
-/**
- * Write a description of class Rook here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
+import java.util.*;
+
 public class Rook extends Piece
 {
+    public Rook(Boolean color) 
+    {
+        super(color);
+        name = "R";
+    }
     
+    protected LinkedList<ChessTile> moves(ChessTile tile) 
+    { 
+      LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
+        
+      return moves;
+    }
 }
