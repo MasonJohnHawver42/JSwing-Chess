@@ -1,4 +1,3 @@
-
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +14,7 @@ public class MineSweeper extends Game
         super("Mine Sweeper");
     }
 
-    protected void init() {
+    public void init() {
         board = new MSBoard(this, 10);
         add(board);
     }
@@ -41,10 +40,9 @@ public class MineSweeper extends Game
 
         public MSTile(MSBoard b, int r, int c) {
             super(b, r, c);
+            state = new UnInit(this);
+            state.start();
         }
-
-        @Override
-        public Tile.State initState() { return new UnInit(this); }
 
         private Boolean mined;
 
@@ -60,7 +58,9 @@ public class MineSweeper extends Game
                 t.setText("U");
             }
             public void update(ActionEvent e) {
-
+                
+                System.out.println("here");
+                
                 tile.mined = false;
 
                 tile.state = new UnChecked(tile);
