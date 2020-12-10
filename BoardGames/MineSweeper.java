@@ -40,6 +40,11 @@ public class MineSweeper extends Game
 
         public MSTile(MSBoard b, int r, int c) {
             super(b, r, c);
+            
+            setPreferredSize(new Dimension(60, 60));
+            Font font = new Font("Futura", Font.BOLD, 20);
+            setFont(font);
+            
             state = new UnInit(this);
             state.start();
         }
@@ -55,11 +60,11 @@ public class MineSweeper extends Game
         private class UnInit extends State<MSTile> {
             public UnInit(MSTile t) {
                 super(t);
-                t.setText("U");
+                t.setBackground(Color.LIGHT_GRAY);
+                t.setText(" ");
             }
             public void update(ActionEvent e) {
-                
-                System.out.println("here");
+               
                 
                 tile.mined = false;
 
@@ -81,6 +86,7 @@ public class MineSweeper extends Game
         private class UnChecked extends State<MSTile> {
             public UnChecked(MSTile t) {
                 super(t);
+                t.setBackground(Color.LIGHT_GRAY);
                 t.setText(" ");
             }
             public void start() {
@@ -105,6 +111,7 @@ public class MineSweeper extends Game
         private class Checked extends State<MSTile> {
             public Checked(MSTile t) {
                 super(t);
+                t.setBackground(Color.WHITE);
             }
             public void start() {
               super.start();
@@ -115,14 +122,39 @@ public class MineSweeper extends Game
                 int bombs = 0;
                 LinkedList<MSTile> ns = tile.getNeighbors();
                 for (MSTile n : ns) { bombs += n.mined ? 1 : 0; }
+                
+                label = Integer.toString(bombs);
+                
                 if (bombs == 0) {
                   for (MSTile n : ns) {
                     if (n.state instanceof UnChecked) { n.setState(new Checked(n)); }
                   }
+                  
+                  label = " ";
                 }
-
-                label = Integer.toString(bombs);
-              }
+                
+                Color fg = Color.BLACK;
+                
+                switch(bombs) {
+                    case 1:
+                        fg = Color.BLUE; break;
+                    case 2:
+                        fg = Color.GREEN; break;
+                    case 3:
+                        fg = Color.RED; break;
+                    case 4:
+                        fg = Color.MAGENTA; break;
+                    case 5:
+                        fg = Color.YELLOW; break;
+                    case 6:
+                        fg = Color.ORANGE; break;
+                    case 7:
+                        fg = Color.BLACK; break; 
+                    case 8:
+                        fg = Color.WHITE; break;
+                }
+                tile.setForeground(fg);
+              } else { tile.setBackground(Color.RED); }
 
               tile.setText(label);
 
