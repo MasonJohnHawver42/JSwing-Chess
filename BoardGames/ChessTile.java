@@ -19,11 +19,14 @@ public class ChessTile extends Tile<ChessBoard>
         setPreferredSize(new Dimension(50, 50));
     }
     
-    private Piece getPiece() {
+    public boolean empty() { return piece == null; }
+    
+    public Piece getPiece() {
         return piece;
     }
+   
     
-    private boolean getColor() {
+    public boolean getColor() {
         return color;
     }
     
