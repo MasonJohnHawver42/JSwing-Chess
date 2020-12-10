@@ -16,7 +16,10 @@ public class ChessTile extends Tile<ChessBoard>
         state.start();
         
         setText(" ");
-        setPreferredSize(new Dimension(60, 60));
+        setPreferredSize(new Dimension(80, 80));
+        
+        Font font = new Font("Futura", Font.BOLD, 20);
+        setFont(font);
     }
     
     public boolean empty() { return piece == null; }
