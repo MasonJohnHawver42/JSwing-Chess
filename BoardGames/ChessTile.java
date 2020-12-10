@@ -15,11 +15,7 @@ public class ChessTile extends Tile<ChessBoard>
         state = new UnSelected(this); 
         state.start();
         
-        setText(" ");
-        setPreferredSize(new Dimension(80, 80));
-        
-        Font font = new Font("Futura", Font.BOLD, 20);
-        setFont(font);
+        setPreferredSize(new Dimension(60, 60));
     }
     
     public boolean empty() { return piece == null; }
@@ -36,7 +32,7 @@ public class ChessTile extends Tile<ChessBoard>
     private void removePiece() { 
         if (piece != null) {
             board.getGame().removePiece(piece);
-            setText(" ");
+            setIcon(null);
         }
         
         piece = null; 
@@ -44,11 +40,7 @@ public class ChessTile extends Tile<ChessBoard>
     private void addPiece(Piece p) { 
         if (p != null) {
             board.getGame().addPiece(p);
-            
-            if (p.color == Chess.dark) { setForeground(Color.BLACK); }
-            else { setForeground(Color.BLUE); }
-            
-            setText(p.getName()); 
+            setIcon(Piece.getIcon(p));
         }
             
         piece = p; 
@@ -61,7 +53,7 @@ public class ChessTile extends Tile<ChessBoard>
     
     public void movePiece(ChessTile place) {
         place.setPiece(piece);
-        setText(" ");
+        setIcon(null);
         piece = null;
     }
     
@@ -71,13 +63,11 @@ public class ChessTile extends Tile<ChessBoard>
         public UnSelected(ChessTile tile) { super(tile); }
         
         public void start() { 
-            super.start();;
+            super.start();
             Color tc;
             
-            int val = 3 * (tile.row + tile.col);
-            
-            if (tile.getColor() == Chess.dark) { tc = new Color(152 - val,251,152 - val); }
-            else { tc = Color.WHITE; }
+            if (tile.getColor() == Chess.dark) { tc = new Color(118, 190, 100); }
+            else { tc = new Color(238, 238, 210); }
             
             tile.setBackground(tc);
         }
