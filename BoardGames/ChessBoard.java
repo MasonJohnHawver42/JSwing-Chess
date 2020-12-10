@@ -53,7 +53,7 @@ public class ChessBoard extends Board<Chess>
       {
         n = false;  
       }*/
-      return new ChessTile(this, i, j, i % 2 == j % 2);
+      return new ChessTile(this, i, j, i % 2 != j % 2);
     }
     
     public void placePiece(Piece p, int i, int j) 
