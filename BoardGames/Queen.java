@@ -7,7 +7,7 @@ public class Queen extends Piece
 {
         public Queen(Boolean color) {
         super(color);
-        name = "P";
+        name = "Q";
     }
     
     protected LinkedList<ChessTile> moves(ChessTile tile) { 
