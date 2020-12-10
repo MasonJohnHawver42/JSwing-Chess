@@ -1,6 +1,6 @@
 package BoardGames;
 
-//wt
+//kunal
 public class ChessBoard extends Board<Chess>
 {
     public ChessBoard(Chess game) 
