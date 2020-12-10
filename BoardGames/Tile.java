@@ -18,6 +18,9 @@ abstract public class Tile<B extends Board> extends JButton {
   }
 
   //getters
+  
+  public int getRow() { return row; }
+  public int getCol() { return col; }
 
   public <T extends Tile<B>> LinkedList<T> getNeighbors() {
     LinkedList<T> n = new LinkedList<T>();
