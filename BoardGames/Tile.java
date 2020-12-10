@@ -8,22 +8,13 @@ abstract public class Tile<B extends Board> extends JButton {
   public Tile(B b, int r, int c) {
       board = b;
       row = r; col = c;
-
-      state = initState();
-      state.start();
   }
-
-  abstract protected State initState();
 
   public final void setState(State new_state) {
       State old_state = state;
-
       old_state.terminate();
-
-      if (!new_state.terminated) {
-        state = new_state;
-         new_state.start();
-      }
+      state = new_state;
+      new_state.start();
   }
 
   //getters
@@ -60,16 +51,14 @@ abstract public class Tile<B extends Board> extends JButton {
   }
 
   public class State<T extends Tile> implements ActionListener {
-    public State(T t) { tile = t; terminated = false; }
+    public State(T t) { tile = t; }
 
     public final void actionPerformed(ActionEvent e) { update(e); }
 
     public void start() { tile.addActionListener(this); }
     public void update(ActionEvent e) {}
-    public void terminate() { tile.removeActionListener(this); terminated = true; }
+    public void terminate() { tile.removeActionListener(this); }
 
     protected T tile;
-
-    boolean terminated;
   }
 }
