@@ -7,8 +7,12 @@ abstract public class Game extends JPanel {
     public Game(String n) {
         name = n;
     }
+    
+    public abstract void init();
 
-    public final void play() {
+    public  void play() {
+        init();
+        
         JFrame frame = new JFrame(name);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
