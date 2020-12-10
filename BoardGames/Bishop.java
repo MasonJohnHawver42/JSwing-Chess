@@ -12,59 +12,49 @@ public class Bishop extends Piece
     protected LinkedList<ChessTile> moves(ChessTile tile) 
     { 
       LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
-      ChessTile move;
-      int x=-1;
-      try{
-      move = tile.getNeighbor(-1,-1);
+        ChessTile move;
+        int x=-1;
+        try{
+            move = tile.getNeighbor(-1,-1);
       
-      while(move.empty()){
-          
-          moves.add(move);
-          x--;
-          move = tile.getNeighbor(color ? 1:x,x);
-        }
-      }
-      catch(RuntimeException e){}
-      x=1;
-      try{
-      move = tile.getNeighbor(1,1);
+            while(move.empty()){
+                moves.add(move);
+                x--;
+                move = tile.getNeighbor(color ? 1:x,x);
+            }
+        }catch(RuntimeException e){}
+        x=1;
+        try{
+            move = tile.getNeighbor(1,1);
       
-      while(move.empty()){
-          
-          moves.add(move);
-          x++;
-          move = tile.getNeighbor(color ? 1:x,x);
-        }
-      }
-      catch(RuntimeException e){}
-      x=1;
+            while(move.empty()){
+                moves.add(move);
+                x++;
+                move = tile.getNeighbor(color ? 1:x,x);
+            }
+        }catch(RuntimeException e){}
+        x=1;
+        try{
+            move = tile.getNeighbor(1,-1);
       
-      try{
-      move = tile.getNeighbor(1,-1);
+            while(move.empty()){
+                moves.add(move);
+                x++;
+          
+                move = tile.getNeighbor(color ? 1:x,-x);
+            }
+        }catch(RuntimeException e){}
+        x=-1; 
+        try{
+            move = tile.getNeighbor(-1,1);
       
-      while(move.empty()){
-          
-          moves.add(move);
-          x++;
-          
-          move = tile.getNeighbor(color ? 1:x,-x);
-        }
-      }
-      catch(RuntimeException e){}
-      x=-1;
-      try{
-      move = tile.getNeighbor(-1,1);
+            while(move.empty()){
+                moves.add(move);
+                x--;
+                move = tile.getNeighbor(color ? 1:x,-x);
+            }
+        }catch(RuntimeException e){}
       
-      while(move.empty()){
-          
-          moves.add(move);
-          x--;
-          
-          move = tile.getNeighbor(color ? 1:x,-x);
-        }
-      }
-      catch(RuntimeException e){}
-      
-      return moves;
+        return moves;
     }
 }
