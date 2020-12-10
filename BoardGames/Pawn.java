@@ -15,7 +15,7 @@ public class Pawn extends Piece
         /*
         could also just do:
         
-        return tile.getNeighbor(0,1);
+        return tile.getNeighbor(0,1); // actually no becuase remember it has to be a linked list of tiles even if its only one
         
         */
     }
