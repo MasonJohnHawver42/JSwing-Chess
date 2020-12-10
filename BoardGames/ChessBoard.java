@@ -44,7 +44,7 @@ public class ChessBoard extends Board<Chess>
     
     public Tile initTile(int i, int j) 
     { 
-      boolean n = true;
+      /*boolean n = true;
       if(i%2 == j%2)
       {
         n = true;  
@@ -52,8 +52,8 @@ public class ChessBoard extends Board<Chess>
       if(i%2 != j%2)
       {
         n = false;  
-      }
-      return new ChessTile(this, i, j, n);
+      }*/
+      return new ChessTile(this, i, j, i % 2 == j % 2);
     }
     
     public void placePiece(Piece p, int i, int j) 
