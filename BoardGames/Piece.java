@@ -19,8 +19,7 @@ abstract public class Piece<ChessBoard> extends JButton
 }
 
 
-*/ // This is how I did it so It wokered with the rest of the code josh
-import java.util.*;
+*/ // This is how I did it so It wokered with the rest of the code joshimport java.util.*;
 
 abstract public class Piece
 {
@@ -33,6 +32,7 @@ abstract public class Piece
     public void move(ChessTile t) { t.setPiece(this); }
     
     public String getName() { return name; }
+    public boolean getColor() { return color; }
     
     abstract protected LinkedList<ChessTile> moves(ChessTile tile);
     
