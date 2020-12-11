@@ -16,47 +16,42 @@ public class Rook extends Piece
       try 
       {
         ChessTile moveu = tile.getNeighbor (-1,0);
-        //ChessTile moved = tile.getNeighbor(color ? 1: 1,0);
-        //ChessTile movel = tile.getNeighbor(color ? 1: 0,-1);
-        //ChessTile mover = tile.getNeighbor(color ? 1: 0,1);
         while(moveu.empty())  
         {
-          moves.add(moveu);
-          //moveu = tile.getNeighbor(-1, 0); - when you do this it sets moveu back to the begining because rember tile is where the piece is
-          //Piece other = moveu.getPiece(); - why?
+          moves.add(moveu); 
           moveu = moveu.getNeighbor(-1, 0);
-          System.out.println(moveu);
         }
-        
-         
-         
-        //while(!movel.empty())  
-        //{
-        //   Piece other = movel.getPiece();
-        //  boolean other_color = other.getColor();
-        //  if (other_color != color /* our color */) 
-        //  {
-        
-        //  }
-        //  else
-        //  {
-        //    moves.add(movel);   
-        //  }
-        //}         
-        //while(!mover.empty())  
-        //{
-        //  Piece other = mover.getPiece();
-        //  boolean other_color = other.getColor();
-        //  if (other_color != color /* our color */) 
-        //  {
+      }catch(RuntimeException e) {}
 
-        //  }
-        //  else
-        //  {
-        //    moves.add(mover);   
-        //  }
-        //}
-        
+      try 
+      {
+        ChessTile moved = tile.getNeighbor(1,0);
+        while(moved.empty())  
+        {
+          moves.add(moved); 
+          moved = moved.getNeighbor(1, 0);
+        }
+      }catch(RuntimeException e) {}
+      
+      try 
+      {
+        ChessTile movel = tile.getNeighbor(0,-1);
+
+        while(movel.empty())  
+        {
+          moves.add(movel); 
+          movel = movel.getNeighbor(0, -1);
+        }
+      }catch(RuntimeException e) {}
+      
+      try 
+      {
+        ChessTile mover = tile.getNeighbor(0,1);
+        while(mover.empty())  
+        {
+          moves.add(mover); 
+          mover = mover.getNeighbor(0, 1);
+        }
       }catch(RuntimeException e) {}
       return moves;
     }
