@@ -8,7 +8,7 @@ public class Bishop extends Piece
         super(color);
         name = "B";
     }
-    //fixed, work now but need to implement some way to check the color of the piece it is trying to take to see if its valid move
+    //fixed
     protected LinkedList<ChessTile> moves(ChessTile tile) 
     { 
       LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
@@ -22,7 +22,7 @@ public class Bishop extends Piece
                 x--;
                 move = tile.getNeighbor(x,x);
             }
-            if(move.getPiece()!=null/*&& move.getColor()!= this pieces color */)
+            if(move.getPiece()!=null&&move.getPiece().getColor()!=tile.getPiece().getColor())
                 moves.add(move);
         }catch(RuntimeException e){}
         
@@ -35,7 +35,7 @@ public class Bishop extends Piece
                 x++;
                 move = tile.getNeighbor(x,x);
             }
-            if(move.getPiece()!=null)
+            if(move.getPiece()!=null&&move.getPiece().getColor()!=tile.getPiece().getColor())
                 moves.add(move);
         }catch(RuntimeException e){}
         x=1;
@@ -48,7 +48,7 @@ public class Bishop extends Piece
           
                 move = tile.getNeighbor(x,-x);
             }
-            if(move.getPiece()!=null)
+            if(move.getPiece()!=null&&move.getPiece().getColor()!=tile.getPiece().getColor())
                 moves.add(move);
         }catch(RuntimeException e){}
         x=-1; 
@@ -60,7 +60,7 @@ public class Bishop extends Piece
                 x--;
                 move = tile.getNeighbor(x,-x);
             }
-            if(move.getPiece()!=null)
+            if(move.getPiece()!=null&&move.getPiece().getColor()!=tile.getPiece().getColor())
                 moves.add(move);
         }catch(RuntimeException e){}
       
