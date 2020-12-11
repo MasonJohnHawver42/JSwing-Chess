@@ -21,6 +21,8 @@ public class Rook extends Piece
           moves.add(moveu); 
           moveu = moveu.getNeighbor(-1, 0);
         }
+        if(moveu.getPiece()!=null&&moveu.getPiece().getColor()!=tile.getPiece().getColor())
+                moves.add(moveu);
       }catch(RuntimeException e) {}
 
       try 
@@ -31,6 +33,8 @@ public class Rook extends Piece
           moves.add(moved); 
           moved = moved.getNeighbor(1, 0);
         }
+        if(moved.getPiece()!=null&&moved.getPiece().getColor()!=tile.getPiece().getColor())
+                moves.add(moved);
       }catch(RuntimeException e) {}
       
       try 
@@ -42,6 +46,8 @@ public class Rook extends Piece
           moves.add(movel); 
           movel = movel.getNeighbor(0, -1);
         }
+        if(movel.getPiece()!=null&&movel.getPiece().getColor()!=tile.getPiece().getColor())
+                moves.add(movel);
       }catch(RuntimeException e) {}
       
       try 
@@ -52,6 +58,8 @@ public class Rook extends Piece
           moves.add(mover); 
           mover = mover.getNeighbor(0, 1);
         }
+        if(mover.getPiece()!=null&&mover.getPiece().getColor()!=tile.getPiece().getColor())
+                moves.add(mover);
       }catch(RuntimeException e) {}
       return moves;
     }
