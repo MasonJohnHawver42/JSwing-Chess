@@ -22,8 +22,8 @@ public class Rook extends Piece
         while(moveu.empty())  
         {
           moves.add(moveu);
-          moveu = tile.getNeighbor(-1, 0); 
-          Piece other = moveu.getPiece();
+          //moveu = tile.getNeighbor(-1, 0); - when you do this it sets moveu back to the begining because rember tile is where the piece is
+          //Piece other = moveu.getPiece(); - why?
           moveu = moveu.getNeighbor(-1, 0);
           System.out.println(moveu);
         }
