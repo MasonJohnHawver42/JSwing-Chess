@@ -8,7 +8,7 @@ public class Bishop extends Piece
         super(color);
         name = "B";
     }
-    //Not finished, will work on tonight to try and fix - Josh
+    //fixed, work now but need to implement some way to check the color of the piece it is trying to take to see if its valid move
     protected LinkedList<ChessTile> moves(ChessTile tile) 
     { 
       LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
@@ -20,9 +20,12 @@ public class Bishop extends Piece
             while(move.empty()){
                 moves.add(move);
                 x--;
-                move = tile.getNeighbor(color ? 1:x,x);
+                move = tile.getNeighbor(x,x);
             }
+            if(move.getPiece()!=null/*&& move.getColor()!= this pieces color */)
+                moves.add(move);
         }catch(RuntimeException e){}
+        
         x=1;
         try{
             move = tile.getNeighbor(1,1);
@@ -30,8 +33,10 @@ public class Bishop extends Piece
             while(move.empty()){
                 moves.add(move);
                 x++;
-                move = tile.getNeighbor(color ? 1:x,x);
+                move = tile.getNeighbor(x,x);
             }
+            if(move.getPiece()!=null)
+                moves.add(move);
         }catch(RuntimeException e){}
         x=1;
         try{
@@ -41,8 +46,10 @@ public class Bishop extends Piece
                 moves.add(move);
                 x++;
           
-                move = tile.getNeighbor(color ? 1:x,-x);
+                move = tile.getNeighbor(x,-x);
             }
+            if(move.getPiece()!=null)
+                moves.add(move);
         }catch(RuntimeException e){}
         x=-1; 
         try{
@@ -51,8 +58,10 @@ public class Bishop extends Piece
             while(move.empty()){
                 moves.add(move);
                 x--;
-                move = tile.getNeighbor(color ? 1:x,-x);
+                move = tile.getNeighbor(x,-x);
             }
+            if(move.getPiece()!=null)
+                moves.add(move);
         }catch(RuntimeException e){}
       
         return moves;
