@@ -12,6 +12,7 @@ public class Knight extends Piece
     
    protected LinkedList<ChessTile> moves(ChessTile tile) 
    { 
+      LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
       int[] offsets =  { 2, -1,
                          2,  1,
                         -2,  1,
