@@ -1,4 +1,4 @@
-package BoardGames;
+
 
 import java.util.*;
 public class Bishop extends Piece
