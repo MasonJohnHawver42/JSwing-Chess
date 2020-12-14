@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Rook extends Piece
 {
-    public Rook(Boolean color) 
+    public Rook(Boolean color, 5) 
     {
         super(color);
         name = "R";
