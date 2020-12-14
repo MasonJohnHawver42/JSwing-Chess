@@ -5,8 +5,8 @@ import java.util.*;
 
 public class Queen extends Piece
 {
-        public Queen(Boolean color, 9) {
-        super(color);
+        public Queen(Boolean color) {
+        super(color, 9);
         name = "Q";
     }
     
