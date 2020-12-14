@@ -3,7 +3,7 @@ import java.util.*;
 public class Pawn extends Piece
 {
     public Pawn(Boolean color) {
-        super(color);
+        super(color, 1);
         name = "P";
     }
     
