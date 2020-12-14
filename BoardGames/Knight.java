@@ -6,7 +6,7 @@ public class Knight extends Piece
 {
   public Knight(Boolean color) 
   {
-        super(color);
+        super(color, 3);
         name = "Kn";
   }
     
