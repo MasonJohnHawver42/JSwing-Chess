@@ -5,7 +5,8 @@ public class King extends Piece
 {
     public King(Boolean color) 
     {
-        super(color);
+    //I just put 1000 because I need a value there, but obvisouly if you get king you win
+        super(color, 1000);
         name = "K";
     }
     
