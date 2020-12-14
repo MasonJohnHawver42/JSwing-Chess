@@ -5,7 +5,7 @@ public class Bishop extends Piece
 {
     public Bishop(Boolean color) 
     {
-        super(color);
+        super(color, 3);
         name = "B";
     }
     //fixed
