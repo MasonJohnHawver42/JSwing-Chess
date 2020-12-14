@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Queen extends Piece
 {
-        public Queen(Boolean color) {
+        public Queen(Boolean color, 9) {
         super(color);
         name = "Q";
     }
