@@ -1,4 +1,3 @@
-
 import java.util.*;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -15,13 +14,24 @@ abstract public class Piece
     
     public void setTile(ChessTile t) { tile = t; }
     
-    public void move(ChessTile target) {
-        if(tile != null) {tile.movePiece(); }
-        target.placePiece(this);
-        
-        tile = target;
+    public boolean move(ChessTile move) {
+        if (valid(move)) {
+            if(tile != null) {tile.movePiece(); }
+            move.placePiece(this);
+            
+            tile = move;
+            return true;
+        } else { return false; }
     }
     
+    public boolean valid(ChessTile move) {
+        return true;
+    }
+    
+    private Player getPlayer() { 
+        Chess game = tile.getBoard().getGame();
+        return color ? game.light_player : game.dark_player; 
+    }
     public ChessTile getTile() { return tile; }
     public String getName() { return name; }
     public boolean getColor() { return color; }
