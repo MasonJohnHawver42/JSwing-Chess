@@ -10,7 +10,7 @@ public class King extends Piece
         name = "K";
     }
     
-    protected LinkedList<ChessTile> moves(ChessTile tile) 
+    protected LinkedList<ChessTile> moves() 
     {
       LinkedList<ChessTile> moves = new LinkedList<ChessTile>();  
       try 
