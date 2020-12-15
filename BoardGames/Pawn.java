@@ -8,7 +8,7 @@ public class Pawn extends Piece
     }
     
     //fixed fully working
-    protected LinkedList<ChessTile> moves(ChessTile tile) { 
+    protected LinkedList<ChessTile> moves() { 
         LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
         ChessTile move;
         if(tile.getPiece().getColor()==false)
