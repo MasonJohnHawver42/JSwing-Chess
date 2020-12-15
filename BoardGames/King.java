@@ -5,13 +5,15 @@ public class King extends Piece
 {
     public King(Boolean color) 
     {
-    //I just put 1000 because I need a value there, but obvisouly if you get king you win
+    //I just put 1000 because I need a value there, but obvisouly if you get king you win <- ha!
         super(color, 1000);
         name = "K";
     }
     
     protected LinkedList<ChessTile> moves() 
     {
+        //tile.getTile(7, 7) <- botom right corner
+    
       LinkedList<ChessTile> moves = new LinkedList<ChessTile>();  
       try 
       {
