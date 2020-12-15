@@ -13,6 +13,27 @@ abstract public class Piece
         if (icons == null) { loadIcons(); }
     }
     
+    public void setTile(ChessTile t) { tile = t; }
+    
+    public void move(ChessTile target) {
+        if(tile != null) {tile.movePiece(); }
+        target.placePiece(this);
+        
+        tile = target;
+    }
+    
+    public String getName() { return name; }
+    public boolean getColor() { return color; }
+    public int getValue() {return value;}
+    
+    abstract protected LinkedList<ChessTile> moves();
+    
+    protected String name;
+    protected Boolean color;
+    protected int value;
+    
+    protected ChessTile tile; //pos
+    
     static public void loadIcons() {
         icons = new HashMap<String, Icon>();
         icons.put("LP", new ImageIcon("assets/LightPawn.png") );
@@ -44,18 +65,8 @@ abstract public class Piece
     static public Icon getIcon(Piece p) { 
         return icons.get((p.color ? "D" : "L") + p.name);
     }
+   
     
-    public void move(ChessTile t) { t.setPiece(this); }
-    
-    public String getName() { return name; }
-    public boolean getColor() { return color; }
-    public int getValue() {return value;}
-    
-    abstract protected LinkedList<ChessTile> moves(ChessTile tile);
-    
-    protected String name;
-    protected Boolean color;
-    protected int value;
     static Map<String, Icon> icons;
 }
 
