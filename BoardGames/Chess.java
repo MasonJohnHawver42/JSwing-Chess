@@ -1,61 +1,54 @@
+
+import java.util.*;
+
+
+public class Chess extends Game 
+{
+    static final boolean light = false; 
+    static final boolean dark = true;
     
-import java.util.*; 
-    
-public class Player {
-    
-    public Player(Chess g, boolean c) {
-        game = g;
+    public Chess() {
+        super("Chess");
         
-        pieces = new LinkedList<Piece>();
-        color = c;
+        light_player = new Player(this, light);
+        dark_player = new Player(this, dark);
         
-        king = null;
-        checked = false;
+        light_player.opponnet = dark_player;
+        dark_player.opponnet = light_player;
         
-        points = 0;
-        
-        checkors = new LinkedList<Piece>();
+        turn = light_player;
     }
     
-    public boolean getColor() { return color; }
-    public int getPoints() { return points; }
-    
-    public void add(Piece p) { pieces.add(p); points += p.getValue(); if (p instanceof King) {king = p;} }
-    public void remove(Piece p) { pieces.remove(p); }
-    
-    public void check() { 
-        checked = true;
-        king.getTile().check();
-    }
-    public boolean checked() { return checked; }
-    
-    public void beginTurn() {
-        //start a clock or somthing
-    }
-    public void endTurn() {
-        
-        for (Piece p: pieces) {
-            LinkedList<ChessTile> moves = p.moves();
-            if (moves.contains(opponnet.king.getTile())) { 
-                opponnet.check(); 
-            }
-        }
-        
-        game.turn = opponnet;
-        opponnet.beginTurn();
-        //end clock or somthing
+    public void init() {
+        board = new ChessBoard(this);
+        add(board);
     }
     
-    private Chess game;
-    public Player opponnet;
+    public void select(Tile t) { selected = t; }
+    public Tile getSelected() { return selected; }
     
-    private LinkedList<Piece> pieces;
-    private boolean color;
-    private int points;
+    public void addPiece(Piece p) {
+        if (p.color == light) { light_player.add(p); }
+        else { dark_player.add(p); }
+    }
     
-    private Piece king;
-    private boolean checked;
+    public void removePiece(Piece p) {
+        if (p.color == light) { light_player.remove(p); }
+        else { dark_player.remove(p); }
+    }
     
-    public LinkedList<Piece> checkors;
+    public Player getTurn() { return turn; }
     
+    public Player light_player;
+    public Player dark_player;
+    
+    public Player turn;
+    
+    
+    Tile selected;
+    
+    public static void main(String[] args) {
+        Game chess = new Chess();
+        chess.play();
+    }
 }
