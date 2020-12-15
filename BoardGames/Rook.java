@@ -10,7 +10,7 @@ public class Rook extends Piece
         name = "R";
     }
     
-    protected LinkedList<ChessTile> moves(ChessTile tile) 
+    protected LinkedList<ChessTile> moves() 
     { 
       LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
       try 
