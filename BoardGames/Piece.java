@@ -22,6 +22,7 @@ abstract public class Piece
         tile = target;
     }
     
+    public ChessTile getTile() { return tile; }
     public String getName() { return name; }
     public boolean getColor() { return color; }
     public int getValue() {return value;}
