@@ -13,18 +13,21 @@ public class Player {
         checked = false;
         
         points = 0;
+        
+        checkors = new LinkedList<Piece>();
     }
     
     public boolean getColor() { return color; }
+    public int getPoints() { return points; }
     
-    public void add(Piece p) { pieces.add(p); points += 1; if (p instanceof King) {king = p;} }
+    public void add(Piece p) { pieces.add(p); points += p.getValue(); if (p instanceof King) {king = p;} }
     public void remove(Piece p) { pieces.remove(p); }
     
     public void check() { 
         checked = true;
         king.getTile().check();
     }
-    public boolean Checked() { return checked; }
+    public boolean checked() { return checked; }
     
     public void beginTurn() {
         //start a clock or somthing
@@ -33,7 +36,9 @@ public class Player {
         
         for (Piece p: pieces) {
             LinkedList<ChessTile> moves = p.moves();
-            if (moves.contains(opponnet.king.getTile())) { opponnet.check(); break; }
+            if (moves.contains(opponnet.king.getTile())) { 
+                opponnet.check(); 
+            }
         }
         
         game.turn = opponnet;
@@ -50,5 +55,7 @@ public class Player {
     
     private Piece king;
     private boolean checked;
+    
+    public LinkedList<Piece> checkors;
     
 }
