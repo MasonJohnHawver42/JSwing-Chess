@@ -29,32 +29,28 @@ public class ChessTile extends Tile<ChessBoard>
         return color;
     }
     
-    private void removePiece() { 
+    public void setPiece(Piece p) {
+        p.move(this);
+        board.getGame().addPiece(p);
+    }
+    
+    public void removePiece() { 
         if (piece != null) {
             board.getGame().removePiece(piece);
             setIcon(null);
+            piece = null; 
         }
-        
-        piece = null; 
-    }
-    private void addPiece(Piece p) { 
-        if (p != null) {
-            board.getGame().addPiece(p);
-            setIcon(Piece.getIcon(p));
-        }
-            
-        piece = p; 
     }
     
-    public void setPiece(Piece p) { 
-        removePiece();
-        addPiece(p);
+    public void placePiece(Piece p) {
+        this.removePiece();
+        piece = p;
+        setIcon(Piece.getIcon(p));
     }
     
-    public void movePiece(ChessTile place) {
-        place.setPiece(piece);
+    public void movePiece() {
         setIcon(null);
-        piece = null;
+        piece = null; 
     }
     
     public void select() { this.getBoard().getGame().select(this); }
@@ -73,15 +69,18 @@ public class ChessTile extends Tile<ChessBoard>
         }
         public void update(ActionEvent e) {
             
-            ChessTile selected = (ChessTile)tile.getBoard().getGame().getSelected();
+            Chess game = tile.getBoard().getGame();
+            ChessTile selected = (ChessTile)game.getSelected();
             
-            if ( selected == null ) {
-                tile.setState(new Selected(tile)); 
+            if ( selected != null ) { selected.setState(new UnSelected(selected)); }
+            
+            if (tile.getPiece() != null) {
+                
+                tile.setState(new Selected(tile));
+                
             }
-            else {
-                selected.setState(new UnSelected(selected));
-                tile.setState(new Selected(tile)); 
-            }
+            
+            
         }
         public void terminate() { super.terminate(); }
     }
@@ -100,7 +99,7 @@ public class ChessTile extends Tile<ChessBoard>
             tile.select();
             
             if (tile.piece != null) {
-                LinkedList<ChessTile> moves = tile.piece.moves(tile);
+                LinkedList<ChessTile> moves = tile.piece.moves();
                 
                 for (ChessTile move: moves) {
                     move.setState(new Highlighted(move));
@@ -137,16 +136,31 @@ public class ChessTile extends Tile<ChessBoard>
         
         public void update(ActionEvent e) {
             
+            Chess game = tile.getBoard().getGame();
+            ChessTile selected = (ChessTile)game.getSelected();
+            Piece p = selected.getPiece();
             
-            ChessTile selected = (ChessTile)tile.getBoard().getGame().getSelected();
-            
-            selected.movePiece(tile);
-            selected.setState(new UnSelected(selected));
-        
+            if (selected.getPiece().getColor() == game.getTurn().getColor()) { 
+                p.move(tile);
+                selected.setState(new UnSelected(selected));
+                
+                tile.getBoard().getGame().getTurn().endTurn();
+            }
         }
         
         public void terminate() { super.terminate(); }
     
+    }
+    
+    public void check() { setState(new Checked(this)); }
+    
+    public class Checked extends State<ChessTile> {
+        public Checked(ChessTile tile) { super(tile); }
+        public void start() { 
+            super.start();
+            Color tc = tile.getBackground();
+            tile.setBackground(new Color(240, 20, 20));
+        }
     }
     
     Piece piece;
