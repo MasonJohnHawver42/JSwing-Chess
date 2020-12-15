@@ -10,14 +10,17 @@ public class Queen extends Piece
         name = "Q";
     }
     
-    protected LinkedList<ChessTile> moves(ChessTile tile) { 
+    protected LinkedList<ChessTile> moves() { 
         LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
         
         Bishop bish = new Bishop(this.color);
         Rook rook = new Rook(this.color);
         
-        moves.addAll(bish.moves(tile));
-        moves.addAll(rook.moves(tile));
+        bish.setTile(tile);
+        rook.setTile(tile);
+        
+        moves.addAll(bish.moves());
+        moves.addAll(rook.moves()); //rember
         
         return moves;
     }
