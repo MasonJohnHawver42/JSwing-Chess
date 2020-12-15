@@ -10,13 +10,13 @@ public class Chess extends Game
     public Chess() {
         super("Chess");
         
-        light_playa = new Player(this, light);
-        dark_playa = new Player(this, dark);
+        light_player = new Player(this, light);
+        dark_player = new Player(this, dark);
         
-        light_playa.opponnet = dark_playa;
-        dark_playa.opponnet = light_playa;
+        light_player.opponnet = dark_player;
+        dark_player.opponnet = light_player;
         
-        turn = light_playa;
+        turn = light_player;
     }
     
     public void init() {
@@ -28,19 +28,19 @@ public class Chess extends Game
     public Tile getSelected() { return selected; }
     
     public void addPiece(Piece p) {
-        if (p.color == light) { light_playa.add(p); }
-        else { dark_playa.add(p); }
+        if (p.color == light) { light_player.add(p); }
+        else { dark_player.add(p); }
     }
     
     public void removePiece(Piece p) {
-        if (p.color == light) { light_playa.remove(p); }
-        else { dark_playa.remove(p); }
+        if (p.color == light) { light_player.remove(p); }
+        else { dark_player.remove(p); }
     }
     
     public Player getTurn() { return turn; }
     
-    private Player light_playa;
-    private Player dark_playa;
+    public Player light_player;
+    public Player dark_player;
     
     public Player turn;
     
