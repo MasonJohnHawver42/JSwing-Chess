@@ -1,21 +1,22 @@
-import java.awt.*;
+
 import java.util.*;
-import javax.swing.*;
+
 
 public class Chess extends Game 
 {
     static final boolean light = false; 
     static final boolean dark = true;
-    static int whitePoint, blackPoint;
-    static JLabel wPoint, bPoint;
-    
     
     public Chess() {
         super("Chess");
-        light_pieces = new LinkedList<Piece>();
-        dark_pieces = new LinkedList<Piece>();
         
-        turn = light;
+        light_playa = new Player(this, light);
+        dark_playa = new Player(this, dark);
+        
+        light_playa.opponnet = dark_playa;
+        dark_playa.opponnet = light_playa;
+        
+        turn = light_playa;
     }
     
     public void init() {
@@ -27,50 +28,27 @@ public class Chess extends Game
     public Tile getSelected() { return selected; }
     
     public void addPiece(Piece p) {
-        if (p.color == light) { light_pieces.add(p); }
-        else { dark_pieces.add(p); }
+        if (p.color == light) { light_playa.add(p); }
+        else { dark_playa.add(p); }
     }
     
     public void removePiece(Piece p) {
-        if (p.color == light) { 
-            light_pieces.remove(p); 
-            blackPoint += p.getValue();
-            bPoint.setText("Black Points: " + Integer.toString(blackPoint));
-        }
-        else { 
-            dark_pieces.remove(p); 
-            whitePoint += p.getValue(); 
-            wPoint.setText("White Points: " + Integer.toString(whitePoint));
-        }
+        if (p.color == light) { light_playa.remove(p); }
+        else { dark_playa.remove(p); }
     }
     
-    private LinkedList<Piece> dark_pieces;
-    private LinkedList<Piece> light_pieces;
+    public Player getTurn() { return turn; }
     
-    boolean turn;
+    private Player light_playa;
+    private Player dark_playa;
+    
+    public Player turn;
+    
     
     Tile selected;
     
-    
     public static void main(String[] args) {
         Game chess = new Chess();
-        JPanel points = new JPanel();
-        
-        chess.setLayout(new BorderLayout());
-        wPoint = new JLabel();
-        JLabel spacer = new JLabel();
-        bPoint = new JLabel();
-        
-        wPoint.setText("White Points: " + Integer.toString(whitePoint));
-        spacer.setText("|\t|");
-        bPoint.setText("Black Points: " + Integer.toString(blackPoint));
-        
-        points.add(wPoint);
-        points.add(spacer);
-        points.add(bPoint);
-        
-        chess.add(points, BorderLayout.NORTH);
-        
         chess.play();
     }
 }
