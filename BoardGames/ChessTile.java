@@ -142,12 +142,15 @@ public class ChessTile extends Tile<ChessBoard>
             ChessTile selected = (ChessTile)game.getSelected();
             Piece p = selected.getPiece();
             
-            if (selected.getPiece().getColor() == game.getTurn().getColor()) { 
-                p.move(tile);
-                selected.setState(new UnSelected(selected));
+            
+            boolean moved = p.move(tile);
+            
+            if (moved) {
+               selected.setState(new UnSelected(selected));
                 
-                tile.getBoard().getGame().getTurn().endTurn();
+               tile.getBoard().getGame().getTurn().endTurn();
             }
+            
         }
         
         public void terminate() { super.terminate(); }
