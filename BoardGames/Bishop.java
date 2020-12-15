@@ -9,7 +9,7 @@ public class Bishop extends Piece
         name = "B";
     }
     //fixed
-    protected LinkedList<ChessTile> moves(ChessTile tile) 
+    protected LinkedList<ChessTile> moves() 
     { 
       LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
         ChessTile move;
