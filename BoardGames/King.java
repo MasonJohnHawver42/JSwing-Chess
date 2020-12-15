@@ -1,5 +1,4 @@
 package BoardGames;
-
 import java.util.*;
 public class King extends Piece
 {
@@ -110,6 +109,20 @@ public class King extends Piece
             if(movedr.getPiece()!=null&&movedr.getPiece().getColor()!=tile.getPiece().getColor())
                 moves.add(movedr);
       } catch(RuntimeException e) {}
+      
+      //Essentially all this does is that if it's in that position, it will
+      //move to potential castling areas
+      if(tile.getRow() == 0 && tile.getCol() == 4)
+      {
+         ChessTile movecl = tile.getNeighbor(-2,0);
+         ChessTile movecr = tile.getNeighbor(2,0); 
+      }
+      
+      if(tile.getRow() == 7 && tile.getCol() == 4)
+      {
+        ChessTile movecl = tile.getNeighbor(-2,0);
+        ChessTile movecr = tile.getNeighbor(2,0); 
+      }
       return moves;
     }
 }
