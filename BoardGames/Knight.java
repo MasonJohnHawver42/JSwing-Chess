@@ -10,7 +10,7 @@ public class Knight extends Piece
         name = "Kn";
   }
     
-   protected LinkedList<ChessTile> moves(ChessTile tile) 
+   protected LinkedList<ChessTile> moves() 
    { 
       LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
       int[] offsets =  { 2, -1,
