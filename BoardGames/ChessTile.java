@@ -75,8 +75,10 @@ public class ChessTile extends Tile<ChessBoard>
             if ( selected != null ) { selected.setState(new UnSelected(selected)); }
             
             if (tile.getPiece() != null) {
+                if (game.getTurn().getColor() == tile.getPiece().getColor()) {
+                    tile.setState(new Selected(tile));
+                }
                 
-                tile.setState(new Selected(tile));
                 
             }
             
@@ -154,7 +156,7 @@ public class ChessTile extends Tile<ChessBoard>
     
     public void check() { setState(new Checked(this)); }
     
-    public class Checked extends State<ChessTile> {
+    public class Checked extends UnSelected {
         public Checked(ChessTile tile) { super(tile); }
         public void start() { 
             super.start();
