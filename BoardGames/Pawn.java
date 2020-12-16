@@ -26,8 +26,11 @@ public class Pawn extends Piece
                 if(move.getPiece().getColor()!=tile.getPiece().getColor())
                     moves.add(move);
             } catch(RuntimeException e) {}
-            if(tile.getRow()==6)
-                    moves.add(tile.getNeighbor(-2,0));
+            if(tile.getRow()==6) {
+                    move = tile.getNeighbor(-2,0);
+                    if(move.empty()) { moves.add(move); }
+                    
+            }
         }else{
             try {
                 move = tile.getNeighbor(1,0);
@@ -42,8 +45,11 @@ public class Pawn extends Piece
                 if(move.getPiece().getColor()!=tile.getPiece().getColor())
                     moves.add(move);
             } catch(RuntimeException e) {}
-            if(tile.getRow()==1)
-                    moves.add(tile.getNeighbor(2,0));
+            if(tile.getRow()==1) {
+                    move = tile.getNeighbor(2,0);
+                    if(move.empty()) { moves.add(move); }
+                
+                }
         }
         return moves;
     }
