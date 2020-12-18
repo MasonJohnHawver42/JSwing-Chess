@@ -4,6 +4,8 @@ import java.awt.event.*;
 
 import java.util.*;
 
+//made prettier, need to allign text to center still
+
 public class ChessTile extends Tile<ChessBoard> implements ActionListener
 {
     private JButton b1, b2, b3, b4;
@@ -63,9 +65,14 @@ public class ChessTile extends Tile<ChessBoard> implements ActionListener
                 frm = new JFrame("Promotion");
                 frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frm.setLayout(new GridLayout(5, 1));
-                //use 60 for width if no JLabel vvv
-                frm.setPreferredSize(new Dimension(245,480));
-                frm.add(new JLabel("Select a piece to promote your pawn to."));
+                //245
+                frm.setPreferredSize(new Dimension(60,480));
+                JLabel promote = new JLabel("<html>Select a piece to promote your pawn to.</html>");
+                //promote.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+                //promote.setHorizontalAlignment(JLabel.CENTER);
+                //promote.setVerticalAlignment(JLabel.CENTER);
+                //promote.setLocation((this.getWidth()-promote.getWidth())/2,60);
+                frm.add(promote);
                 
                 if(piece.getColor()==false)
                 {
@@ -91,6 +98,10 @@ public class ChessTile extends Tile<ChessBoard> implements ActionListener
                     b4 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkBishop.png") );
                      */
                 }
+                b1.setBackground(new Color(118, 190, 100));
+                b2.setBackground(new Color(238, 238, 210));
+                b3.setBackground(new Color(118, 190, 100));
+                b4.setBackground(new Color(238, 238, 210));
                 
                 b1.addActionListener(this);
                 b2.addActionListener(this);
