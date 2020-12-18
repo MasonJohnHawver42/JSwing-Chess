@@ -76,6 +76,8 @@ abstract public class Piece
     static public Icon getIcon(Piece p) { 
         return icons.get((p.color ? "D" : "L") + p.name);
     }
+    
+    static public Icon getIcon(String abbr) { return icons.get(abbr); }
    
     
     static Map<String, Icon> icons;
