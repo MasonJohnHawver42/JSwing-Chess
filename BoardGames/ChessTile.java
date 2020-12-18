@@ -4,10 +4,10 @@ import java.awt.event.*;
 
 import java.util.*;
 
-//mason
-
-public class ChessTile extends Tile<ChessBoard>
+public class ChessTile extends Tile<ChessBoard> implements ActionListener
 {
+    private JButton b1, b2, b3, b4;
+    private JFrame frm;
     public ChessTile(ChessBoard b, int r, int c, boolean col) {
         super(b, r, c);
         color = col;
@@ -32,6 +32,7 @@ public class ChessTile extends Tile<ChessBoard>
     public void setPiece(Piece p) {
         p.move(this);
         board.getGame().addPiece(p);
+        
     }
     
     public void removePiece() { 
@@ -46,6 +47,83 @@ public class ChessTile extends Tile<ChessBoard>
         this.removePiece();
         piece = p;
         setIcon(Piece.getIcon(p));
+        if(p.getName().equals("P"))
+        {
+            promotion(p);
+            piece = p;
+            setIcon(Piece.getIcon(p));
+        }
+    }
+    
+    public Piece promotion(Piece p)
+    {
+        try{
+            if((piece.getColor()==false && piece.getTile().getRow()==1) || (p.getColor() && p.getTile().getRow()==6))
+            {
+                frm = new JFrame("Promotion");
+                frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frm.setLayout(new GridLayout(5, 1));
+                //use 60 for width if no JLabel vvv
+                frm.setPreferredSize(new Dimension(245,480));
+                frm.add(new JLabel("Select a piece to promote your pawn to."));
+                
+                if(piece.getColor()==false)
+                {
+                    b1 = new JButton(new ImageIcon("assets/LightQueen.png"));
+                    b2 = new JButton(new ImageIcon("assets/LightKnight.png"));
+                    b3 = new JButton(new ImageIcon("assets/LightRook.png"));
+                    b4 = new JButton(new ImageIcon("assets/LightBishop.png"));
+                    /*
+                    b1 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\LightQueen.png") );
+                    b2 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\LightKnight.png") );
+                    b3 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\LightRook.png") );
+                    b4 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\LightBishop.png") );
+                     */
+                }else{
+                    b1 = new JButton(new ImageIcon("assets/DarkQueen.png"));
+                    b2 = new JButton(new ImageIcon("assets/DarkKnight.png"));
+                    b3 = new JButton(new ImageIcon("assets/DarkRook.png"));
+                    b4 = new JButton(new ImageIcon("assets/DarkBishop.png"));
+                    /*
+                    b1 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkQueen.png") );
+                    b2 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkKnight.png") );
+                    b3 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkRook.png") );
+                    b4 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkBishop.png") );
+                     */
+                }
+                
+                b1.addActionListener(this);
+                b2.addActionListener(this);
+                b3.addActionListener(this);
+                b4.addActionListener(this);
+                
+                frm.add(b1);
+                frm.add(b2);
+                frm.add(b3);
+                frm.add(b4);
+                
+                frm.pack();
+                frm.setVisible(true);
+            }
+        }catch(NullPointerException e){}
+        return p;
+    }
+    
+    public void actionPerformed(ActionEvent e)
+    {
+        board.getGame().removePiece(piece);;
+        if(e.getSource()==b1)
+            piece = new Queen(piece.getColor());
+        else if(e.getSource()==b2)
+            piece = new Knight(piece.getColor());
+        else if(e.getSource()==b3)
+            piece = new Rook(piece.getColor());
+        else if(e.getSource()==b4)
+            piece = new Bishop(piece.getColor());
+        setPiece(piece);
+        board.getGame().addPiece(piece);
+        
+        frm.dispose();
     }
     
     public void movePiece() {
