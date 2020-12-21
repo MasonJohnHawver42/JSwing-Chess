@@ -1,66 +1,63 @@
-package BoardGames;
+ 
 
 import java.util.*;
 
 public class Rook extends Piece
 {
-    public Rook(Boolean color) 
+    public Rook(Player o) 
     {
-        super(color, 5);
+        super(o);
         name = "R";
+        value = 5;
     }
     
-    protected LinkedList<ChessTile> moves() 
+    protected LinkedList<Move> moves() 
     { 
-      LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
+      LinkedList<Move> moves = new LinkedList<Move>();
       try 
       {
-        ChessTile moveu = tile.getNeighbor (-1,0);
-        while(moveu.empty())  
+        ChessTile up = tile.getNeighbor (-1,0);
+        while(up.empty())  
         {
-          moves.add(moveu); 
-          moveu = moveu.getNeighbor(-1, 0);
+          moves.add(new NormalMove(this, up)); 
+          up = up.getNeighbor(-1, 0);
         }
-        if(moveu.getPiece()!=null&&moveu.getPiece().getColor()!=tile.getPiece().getColor())
-                moves.add(moveu);
-      }catch(RuntimeException e) {}
-
-      try 
-      {
-        ChessTile moved = tile.getNeighbor(1,0);
-        while(moved.empty())  
-        {
-          moves.add(moved); 
-          moved = moved.getNeighbor(1, 0);
-        }
-        if(moved.getPiece()!=null&&moved.getPiece().getColor()!=tile.getPiece().getColor())
-                moves.add(moved);
-      }catch(RuntimeException e) {}
+        if(up.getPiece().getColor() != tile.getPiece().getColor() ) { moves.add(new NormalMove(this, up)); }
+      } catch(RuntimeException e) {}
       
       try 
       {
-        ChessTile movel = tile.getNeighbor(0,-1);
-
-        while(movel.empty())  
+        ChessTile down = tile.getNeighbor (1,0);
+        while(down.empty())  
         {
-          moves.add(movel); 
-          movel = movel.getNeighbor(0, -1);
+          moves.add(new NormalMove(this, down)); 
+          down = down.getNeighbor(1, 0);
         }
-        if(movel.getPiece()!=null&&movel.getPiece().getColor()!=tile.getPiece().getColor())
-                moves.add(movel);
-      }catch(RuntimeException e) {}
+        if(down.getPiece().getColor() != tile.getPiece().getColor() ) { moves.add(new NormalMove(this, down)); }
+      } catch(RuntimeException e) {}
       
       try 
       {
-        ChessTile mover = tile.getNeighbor(0,1);
-        while(mover.empty())  
+        ChessTile left = tile.getNeighbor (0,-1);
+        while(left.empty())  
         {
-          moves.add(mover); 
-          mover = mover.getNeighbor(0, 1);
+          moves.add(new NormalMove(this, left)); 
+          left = left.getNeighbor(0, -1);
         }
-        if(mover.getPiece()!=null&&mover.getPiece().getColor()!=tile.getPiece().getColor())
-                moves.add(mover);
-      }catch(RuntimeException e) {}
+        if(left.getPiece().getColor() != tile.getPiece().getColor() ) { moves.add(new NormalMove(this, left)); }
+      } catch(RuntimeException e) {}
+      
+      try 
+      {
+        ChessTile right = tile.getNeighbor (0,1);
+        while(right.empty())  
+        {
+          moves.add(new NormalMove(this, right)); 
+          right = right.getNeighbor(0, 1);
+        }
+        if(right.getPiece().getColor() != tile.getPiece().getColor() ) { moves.add(new NormalMove(this, right)); }
+      } catch(RuntimeException e) {}
+
       return moves;
     }
 }

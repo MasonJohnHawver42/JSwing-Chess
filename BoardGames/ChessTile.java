@@ -4,9 +4,7 @@ import java.awt.event.*;
 
 import java.util.*;
 
-//made prettier, need to allign text to center still
-
-public class ChessTile extends Tile<ChessBoard> implements ActionListener
+public class ChessTile extends Tile<ChessBoard>
 {
     private JButton b1, b2, b3, b4;
     private JFrame frm;
@@ -22,124 +20,21 @@ public class ChessTile extends Tile<ChessBoard> implements ActionListener
     
     public boolean empty() { return piece == null; }
     
-    public Piece getPiece() {
-        return piece;
-    }
-   
+    public Piece getPiece() { return piece; }
+    public boolean getColor() { return color; }
     
-    public boolean getColor() {
-        return color;
-    }
-    
-    public void setPiece(Piece p) {
-        p.move(this);
-        board.getGame().addPiece(p);
-        
+    public Piece removePiece() {
+        Piece removed = piece;
+        setIcon(null);
+        piece = null;
+        return removed;
     }
     
-    public void removePiece() { 
-        if (piece != null) {
-            board.getGame().removePiece(piece);
-            setIcon(null);
-            piece = null; 
-        }
-    }
-    
-    public void placePiece(Piece p) {
-        this.removePiece();
+    public Piece placePiece(Piece p) {
+        Piece removed = this.removePiece();
         piece = p;
         setIcon(Piece.getIcon(p));
-        if(p.getName().equals("P"))
-        {
-            promotion(p);
-            piece = p;
-            setIcon(Piece.getIcon(p));
-        }
-    }
-    
-    public Piece promotion(Piece p)
-    {
-        try{
-            if((piece.getColor()==false && piece.getTile().getRow()==1) || (p.getColor() && p.getTile().getRow()==6))
-            {
-                frm = new JFrame("Promotion");
-                frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frm.setLayout(new GridLayout(5, 1));
-                //245
-                frm.setPreferredSize(new Dimension(60,480));
-                JLabel promote = new JLabel("<html>Select a piece to promote your pawn to.</html>");
-                //promote.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-                //promote.setHorizontalAlignment(JLabel.CENTER);
-                //promote.setVerticalAlignment(JLabel.CENTER);
-                //promote.setLocation((this.getWidth()-promote.getWidth())/2,60);
-                frm.add(promote);
-                
-                if(piece.getColor()==false)
-                {
-                    b1 = new JButton(new ImageIcon("assets/LightQueen.png"));
-                    b2 = new JButton(new ImageIcon("assets/LightKnight.png"));
-                    b3 = new JButton(new ImageIcon("assets/LightRook.png"));
-                    b4 = new JButton(new ImageIcon("assets/LightBishop.png"));
-                    /*
-                    b1 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\LightQueen.png") );
-                    b2 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\LightKnight.png") );
-                    b3 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\LightRook.png") );
-                    b4 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\LightBishop.png") );
-                     */
-                }else{
-                    b1 = new JButton(new ImageIcon("assets/DarkQueen.png"));
-                    b2 = new JButton(new ImageIcon("assets/DarkKnight.png"));
-                    b3 = new JButton(new ImageIcon("assets/DarkRook.png"));
-                    b4 = new JButton(new ImageIcon("assets/DarkBishop.png"));
-                    /*
-                    b1 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkQueen.png") );
-                    b2 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkKnight.png") );
-                    b3 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkRook.png") );
-                    b4 = new JButton(new ImageIcon("C:\\Users\\addag\\OneDrive\\Desktop\\Code for AP Comp\\AP Comp Project\\Test 5\\boardgame666666\\BoardGames\\assets\\DarkBishop.png") );
-                     */
-                }
-                b1.setBackground(new Color(118, 190, 100));
-                b2.setBackground(new Color(238, 238, 210));
-                b3.setBackground(new Color(118, 190, 100));
-                b4.setBackground(new Color(238, 238, 210));
-                
-                b1.addActionListener(this);
-                b2.addActionListener(this);
-                b3.addActionListener(this);
-                b4.addActionListener(this);
-                
-                frm.add(b1);
-                frm.add(b2);
-                frm.add(b3);
-                frm.add(b4);
-                
-                frm.pack();
-                frm.setVisible(true);
-            }
-        }catch(NullPointerException e){}
-        return p;
-    }
-    
-    public void actionPerformed(ActionEvent e)
-    {
-        board.getGame().removePiece(piece);;
-        if(e.getSource()==b1)
-            piece = new Queen(piece.getColor());
-        else if(e.getSource()==b2)
-            piece = new Knight(piece.getColor());
-        else if(e.getSource()==b3)
-            piece = new Rook(piece.getColor());
-        else if(e.getSource()==b4)
-            piece = new Bishop(piece.getColor());
-        setPiece(piece);
-        board.getGame().addPiece(piece);
-        
-        frm.dispose();
-    }
-    
-    public void movePiece() {
-        setIcon(null);
-        piece = null; 
+        return removed;
     }
     
     public void select() { this.getBoard().getGame().select(this); }
@@ -190,11 +85,11 @@ public class ChessTile extends Tile<ChessBoard> implements ActionListener
             tile.select();
             
             if (tile.piece != null) {
-                LinkedList<ChessTile> moves = tile.piece.moves();
+                LinkedList<Move> moves = tile.piece.moves();
                 
-                for (ChessTile move: moves) {
-                    move.setState(new Highlighted(move));
-                    highlights.add(move);
+                for (Move move: moves) {
+                    move.highlight.setState(new Highlighted(move));
+                    highlights.add(move.highlight);
                 }
             }
         }
@@ -218,7 +113,7 @@ public class ChessTile extends Tile<ChessBoard> implements ActionListener
     }
     
     private class Highlighted extends State<ChessTile> {
-        public Highlighted(ChessTile tile) { super(tile); }
+        public Highlighted(Move m) { super(m.highlight); move = m; }
         public void start() { 
             super.start();
             Color tc = tile.getBackground();
@@ -230,20 +125,21 @@ public class ChessTile extends Tile<ChessBoard> implements ActionListener
             Chess game = tile.getBoard().getGame();
             ChessTile selected = (ChessTile)game.getSelected();
             Piece p = selected.getPiece();
+
+            try {
+                game.hist.add(move);
+                move.Do();
+                game.getTurn().endTurn();
             
-            
-            boolean moved = p.move(tile);
-            
-            if (moved) {
-               selected.setState(new UnSelected(selected));
-                
-               tile.getBoard().getGame().getTurn().endTurn();
+                selected.setState(new UnSelected(selected)); 
             }
-            
+            catch (RuntimeException ex) { System.out.println(ex); }
         }
         
         public void terminate() { super.terminate(); }
-    
+        
+        
+        private Move move;
     }
     
     public void check() { setState(new Checked(this)); }

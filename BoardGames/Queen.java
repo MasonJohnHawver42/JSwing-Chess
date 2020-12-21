@@ -5,22 +5,25 @@ import java.util.*;
 
 public class Queen extends Piece
 {
-        public Queen(Boolean color) {
-        super(color, 9);
+        public Queen(Player o) {
+        super(o);
         name = "Q";
+        value = 9;
     }
     
-    protected LinkedList<ChessTile> moves() { 
-        LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
+    protected LinkedList<Move> moves() { 
+        LinkedList<Move> moves = new LinkedList<Move>();
         
-        Bishop bish = new Bishop(this.color);
-        Rook rook = new Rook(this.color);
+        Bishop bish = new Bishop(owner);
+        Rook rook = new Rook(owner);
         
         bish.setTile(tile);
         rook.setTile(tile);
         
-        moves.addAll(bish.moves());
-        moves.addAll(rook.moves()); //rember
+        for (Move move : bish.moves()) { moves.add(new NormalMove(this, ((NormalMove)move).to)); }
+        for (Move move : rook.moves()) { moves.add(new NormalMove(this, ((NormalMove)move).to)); }
+        
+        setTile(tile);
         
         return moves;
     }

@@ -2,54 +2,64 @@ import java.util.*;
 
 public class Pawn extends Piece
 {
-    public Pawn(Boolean color) {
-        super(color, 1);
+    public Pawn(Player o) {
+        super(o);
         name = "P";
+        value = 1;
     }
     
     //fixed fully working
-    protected LinkedList<ChessTile> moves() { 
-        LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
+    protected LinkedList<Move> moves() { 
+        LinkedList<Move> moves = new LinkedList<Move>();
         ChessTile move;
+        
         if(tile.getPiece().getColor()==false)
         {
             try {
                 move = tile.getNeighbor(-1,0);
                 if(move.empty())
-                    moves.add(move);
+                    moves.add( new NormalMove(this, move) );
                     move = tile.getNeighbor(-1,1);
                 if(move.getPiece().getColor()!=tile.getPiece().getColor())
-                    moves.add(move);
+                    moves.add(new NormalMove(this, move));
             } catch(RuntimeException e) {}
             try{
                 move = tile.getNeighbor(-1,-1);
                 if(move.getPiece().getColor()!=tile.getPiece().getColor())
-                    moves.add(move);
+                    moves.add(new NormalMove(this, move));
             } catch(RuntimeException e) {}
             if(tile.getRow()==6) {
                     move = tile.getNeighbor(-2,0);
-                    if(move.empty()) { moves.add(move); }
+                    if(move.empty()) { moves.add(new NormalMove(this, move)); }
                     
+            }
+            else if (tile.getRow()==1) {
+                move = tile.getNeighbor(-1,0);
+                if(move.empty()) { moves.add(new Promotion(this, move)); }
             }
         }else{
             try {
                 move = tile.getNeighbor(1,0);
                 if(move.empty())
-                    moves.add(move);
-                    move = tile.getNeighbor(1,1);
+                    moves.add( new NormalMove(this, move) );
+                move = tile.getNeighbor(1,1);
                 if(move.getPiece().getColor()!=tile.getPiece().getColor())
-                    moves.add(move);
+                    moves.add(new NormalMove(this, move));
             } catch(RuntimeException e) {}
             try{
                 move = tile.getNeighbor(1,-1);
                 if(move.getPiece().getColor()!=tile.getPiece().getColor())
-                    moves.add(move);
+                    moves.add(new NormalMove(this, move));
             } catch(RuntimeException e) {}
             if(tile.getRow()==1) {
                     move = tile.getNeighbor(2,0);
-                    if(move.empty()) { moves.add(move); }
-                
-                }
+                    if(move.empty()) { moves.add(new NormalMove(this, move)); }
+                    
+            }
+            else if (tile.getRow()==6) {
+                move = tile.getNeighbor(-1,0);
+                if(move.empty()) { moves.add(new Promotion(this, move)); }
+            }
         }
         return moves;
     }

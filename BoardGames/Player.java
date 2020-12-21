@@ -20,8 +20,10 @@ public class Player {
     public boolean getColor() { return color; }
     public int getPoints() { return points; }
     
+    public Chess getGame() { return game; }
+    
     public void add(Piece p) { pieces.add(p); points += p.getValue(); if (p instanceof King) {king = p;} }
-    public void remove(Piece p) { pieces.remove(p); }
+    public void remove(Piece p) { pieces.remove(p); points -= p.getValue(); }
     
     public void check() { 
         checked = true;
@@ -34,12 +36,13 @@ public class Player {
     }
     public void endTurn() {
         
+        /*
         for (Piece p: pieces) {
             LinkedList<ChessTile> moves = p.moves();
             if (moves.contains(opponnet.king.getTile())) { 
                 opponnet.check(); 
             }
-        }
+        } */
         
         game.turn = opponnet;
         opponnet.beginTurn();

@@ -1,18 +1,19 @@
-package BoardGames;
+ 
 
 import java.util.*;
 
 public class Knight extends Piece
 {
-  public Knight(Boolean color) 
+  public Knight(Player o) 
   {
-        super(color, 3);
+        super(o);
         name = "Kn";
+        value = 3;
   }
     
-   protected LinkedList<ChessTile> moves() 
+   protected LinkedList<Move> moves() 
    { 
-      LinkedList<ChessTile> moves = new LinkedList<ChessTile>();
+      LinkedList<Move> moves = new LinkedList<Move>();
       int[] offsets =  { 2, -1,
                          2,  1,
                         -2,  1,
@@ -24,15 +25,14 @@ public class Knight extends Piece
       
       for (int i = 0; i < offsets.length; i += 2 ) {
         try {
-            ChessTile move = tile.getNeighbor(offsets[i], offsets[i + 1]);
+            ChessTile place = tile.getNeighbor(offsets[i], offsets[i + 1]);
             
-            if (!move.empty()) {
-                Piece other = move.getPiece();
-                boolean other_color = other.getColor();
-                if (other_color != color ) { moves.add(move); }
+            if (!place.empty()) {
+                Piece other = place.getPiece();
+                if (other.getColor() != getColor() ) { moves.add(new NormalMove(this, place)); }
             }
             else {
-                moves.add(move);
+                moves.add(new NormalMove(this, place));
             }
         } catch(RuntimeException e) {}
       }
