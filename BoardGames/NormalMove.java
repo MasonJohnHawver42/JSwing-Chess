@@ -1,4 +1,7 @@
 
+package BoardGames;
+
+
 /**
  * Write a description of class Move here.
  *
@@ -19,7 +22,7 @@ public class NormalMove extends Move
     
     public void Do() {
         from.removePiece();
-        to.placePiece(piece);
+        captured=to.placePiece(piece);
         if(captured != null) { captured.capture(); }
         
         piece.setTile(to); 
