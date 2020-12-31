@@ -8,17 +8,18 @@
 public class NormalMove extends Move
 {
     public NormalMove(Piece p, ChessTile t) {
-        super(p.getOwner(), t);
+        super(p, t);
         piece = p;
         from = p.getTile();
         to = t;
+        captured = to.getPiece();
         
         highlight = to;
     }
     
     public void Do() {
         from.removePiece();
-        captured = to.placePiece(piece);
+        to.placePiece(piece);
         if(captured != null) { captured.capture(); }
         
         piece.setTile(to); 

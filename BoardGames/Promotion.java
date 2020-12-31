@@ -6,7 +6,7 @@ public class Promotion extends Move
 {
     public Promotion(Pawn p, ChessTile t)
     {
-        super(p.getOwner(), t);
+        super(p, t);
         move = new NormalMove(p, t);
     }
     

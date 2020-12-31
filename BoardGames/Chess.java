@@ -19,10 +19,13 @@ public class Chess extends Game
         turn = light_player;
         
         hist = new History();
+        board = new ChessBoard(this);
+        
+        
     }
     
     public void init() {
-        board = new ChessBoard(this);
+        
         add(board);
         add(hist);
     }
@@ -42,7 +45,8 @@ public class Chess extends Game
     Tile selected;
     
     public static void main(String[] args) {
-        Game chess = new Chess();
+        Chess chess = new Chess();
+        chess.light_player.beginTurn();
         chess.play();
     }
 }

@@ -87,9 +87,13 @@ public class ChessTile extends Tile<ChessBoard>
             if (tile.piece != null) {
                 LinkedList<Move> moves = tile.piece.moves();
                 
-                for (Move move: moves) {
-                    move.highlight.setState(new Highlighted(move));
-                    highlights.add(move.highlight);
+                Piece p = tile.getPiece();
+                
+                for (Move move: p.getOwner().moves) {
+                    if (move.manifestor == p) {
+                        move.highlight.setState(new Highlighted(move));
+                        highlights.add(move.highlight);
+                    }
                 }
             }
         }
@@ -124,16 +128,10 @@ public class ChessTile extends Tile<ChessBoard>
             
             Chess game = tile.getBoard().getGame();
             ChessTile selected = (ChessTile)game.getSelected();
-            Piece p = selected.getPiece();
+            Player p = selected.getPiece().getOwner();
+            p.makeMove(move);
+            selected.setState(new UnSelected(selected));
 
-            try {
-                game.hist.add(move);
-                move.Do();
-                game.getTurn().endTurn();
-            
-                selected.setState(new UnSelected(selected)); 
-            }
-            catch (RuntimeException ex) { System.out.println(ex); }
         }
         
         public void terminate() { super.terminate(); }
@@ -141,17 +139,7 @@ public class ChessTile extends Tile<ChessBoard>
         
         private Move move;
     }
-    
-    public void check() { setState(new Checked(this)); }
-    
-    public class Checked extends UnSelected {
-        public Checked(ChessTile tile) { super(tile); }
-        public void start() { 
-            super.start();
-            Color tc = tile.getBackground();
-            tile.setBackground(new Color(240, 20, 20));
-        }
-    }
+   
     
     Piece piece;
     boolean color;

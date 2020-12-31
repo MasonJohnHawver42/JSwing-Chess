@@ -2,15 +2,15 @@
 
 public abstract class Move
 {
-    public Move(Player o, ChessTile h) {
-        owner = o;
+    public Move(Piece o, ChessTile h) {
+        manifestor = o;
         highlight = h;
     }
     
     public void Do() { }
     public void Undo() {}
     
-    public Player owner;
+    public Piece manifestor;
     public ChessTile highlight;
 }
 

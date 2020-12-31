@@ -17,47 +17,61 @@ public class Pawn extends Piece
         {
             try {
                 move = tile.getNeighbor(-1,0);
-                if(move.empty())
+                if(move.empty()) {
                     moves.add( new NormalMove(this, move) );
-                    move = tile.getNeighbor(-1,1);
-                if(move.getPiece().getColor()!=tile.getPiece().getColor())
-                    moves.add(new NormalMove(this, move));
+                        if(tile.getRow()==6) {
+                        move = tile.getNeighbor(-2,0);
+                        if(move.empty()) { moves.add(new NormalMove(this, move)); } 
+                } }
+                
             } catch(RuntimeException e) {}
+            try { move = tile.getNeighbor(-1,1);
+                if(move.getPiece().getColor()!=tile.getPiece().getColor())
+                    moves.add(new NormalMove(this, move)); } catch(Exception e) {}
             try{
                 move = tile.getNeighbor(-1,-1);
-                if(move.getPiece().getColor()!=tile.getPiece().getColor())
+                if(move.getPiece().getColor()!=tile.getPiece().getColor()) {
                     moves.add(new NormalMove(this, move));
-            } catch(RuntimeException e) {}
-            if(tile.getRow()==6) {
-                    move = tile.getNeighbor(-2,0);
-                    if(move.empty()) { moves.add(new NormalMove(this, move)); }
                     
             }
-            else if (tile.getRow()==1) {
+            } catch(RuntimeException e) {}
+            /*if(tile.getRow()==1) {
+                    move = tile.getNeighbor(2,0);
+                    if(move.empty()) { moves.add(new NormalMove(this, move)); }
+                    
+            }*/
+            if (tile.getRow()==1) {
                 move = tile.getNeighbor(-1,0);
                 if(move.empty()) { moves.add(new Promotion(this, move)); }
             }
         }else{
             try {
                 move = tile.getNeighbor(1,0);
-                if(move.empty())
+                if(move.empty()) {
                     moves.add( new NormalMove(this, move) );
-                move = tile.getNeighbor(1,1);
-                if(move.getPiece().getColor()!=tile.getPiece().getColor())
-                    moves.add(new NormalMove(this, move));
+                        if(tile.getRow()==1) {
+                        move = tile.getNeighbor(2,0);
+                        if(move.empty()) { moves.add(new NormalMove(this, move)); } 
+                } }
+                
             } catch(RuntimeException e) {}
+            try { move = tile.getNeighbor(1,1);
+                if(move.getPiece().getColor()!=tile.getPiece().getColor())
+                    moves.add(new NormalMove(this, move)); } catch(Exception e) {}
             try{
                 move = tile.getNeighbor(1,-1);
-                if(move.getPiece().getColor()!=tile.getPiece().getColor())
+                if(move.getPiece().getColor()!=tile.getPiece().getColor()) {
                     moves.add(new NormalMove(this, move));
+                    
+            }
             } catch(RuntimeException e) {}
-            if(tile.getRow()==1) {
+            /*if(tile.getRow()==1) {
                     move = tile.getNeighbor(2,0);
                     if(move.empty()) { moves.add(new NormalMove(this, move)); }
                     
-            }
-            else if (tile.getRow()==6) {
-                move = tile.getNeighbor(-1,0);
+            }*/
+            if (tile.getRow()==6) {
+                move = tile.getNeighbor(1,0);
                 if(move.empty()) { moves.add(new Promotion(this, move)); }
             }
         }
