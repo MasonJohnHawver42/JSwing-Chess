@@ -1,5 +1,9 @@
  
 
+package BoardGames;
+
+ 
+
 import java.util.*;
 public class King extends Piece
 {
@@ -24,7 +28,32 @@ public class King extends Piece
           else { moves.add(new NormalMove(this, pos)); }
       }
       
+      ChessTile other1 = (ChessTile)tile.getTile(7,0);
+      ChessTile other2 = (ChessTile)tile.getTile(7,7);
+      ChessTile other3 = (ChessTile)tile.getTile(0,0);
+      ChessTile other4 = (ChessTile)tile.getTile(0,7);
+      
+      if(getTile().getCol() == 4)
+      {
+         if(other1.getPiece() instanceof Rook)
+         {
+           moves.add(new Castle(this,(Rook)other1.getPiece(),other1.getNeighbor(0,1)));
+         }
+         if(other2.getPiece() instanceof Rook)
+         {
+           moves.add(new Castle(this,(Rook)other2.getPiece(),other2.getNeighbor(0,-1)));  
+         }
+         if(other3.getPiece() instanceof Rook)
+         {
+           moves.add(new Castle(this,(Rook)other3.getPiece(),other3.getNeighbor(0,1)));  
+         }
+         if(other4.getPiece() instanceof Rook)
+         {
+           moves.add(new Castle(this,(Rook)other4.getPiece(),other4.getNeighbor(0,-1)));   
+         }
+      }
       return moves;
+      
     }
 }
 
