@@ -1,5 +1,3 @@
- 
-
 package BoardGames;
 
  
@@ -28,29 +26,43 @@ public class King extends Piece
           else { moves.add(new NormalMove(this, pos)); }
       }
       
+      ChessTile K1 = (ChessTile)tile.getTile(0,4);
+      ChessTile K2 = (ChessTile)tile.getTile(7,4);
       ChessTile other1 = (ChessTile)tile.getTile(7,0);
       ChessTile other2 = (ChessTile)tile.getTile(7,7);
       ChessTile other3 = (ChessTile)tile.getTile(0,0);
       ChessTile other4 = (ChessTile)tile.getTile(0,7);
+      ChessTile Kn1 = (ChessTile)tile.getTile(7,1);
+      ChessTile Kn2 = (ChessTile)tile.getTile(7,6);
+      ChessTile Kn3 = (ChessTile)tile.getTile(0,1);
+      ChessTile Kn4 = (ChessTile)tile.getTile(0,6);
+      ChessTile Bi1 = (ChessTile)tile.getTile(7,2);
+      ChessTile Bi2 = (ChessTile)tile.getTile(7,5);
+      ChessTile Bi3 = (ChessTile)tile.getTile(0,2);
+      ChessTile Bi4 = (ChessTile)tile.getTile(0,5);
       
-      if(getTile().getCol() == 4)
+      if(getTile().getCol() == 4 && getTile().getRow() == 7)
       {
-         if(other1.getPiece() instanceof Rook)
+         if(other1.getPiece() instanceof Rook)  
          {
-           moves.add(new Castle(this,(Rook)other1.getPiece(),other1.getNeighbor(0,1)));
-         }
+           moves.add(new Castle(this,(Rook)other1.getPiece(),other1.getNeighbor(0,1),K2.getNeighbor(0,-2)));
+         }  
          if(other2.getPiece() instanceof Rook)
          {
-           moves.add(new Castle(this,(Rook)other2.getPiece(),other2.getNeighbor(0,-1)));  
+           moves.add(new Castle(this,(Rook)other2.getPiece(),other2.getNeighbor(0,-1),K2.getNeighbor(0,1)));  
          }
+      }
+      
+      else if(getTile().getCol() == 4 && getTile().getRow() == 0)
+      {
          if(other3.getPiece() instanceof Rook)
          {
-           moves.add(new Castle(this,(Rook)other3.getPiece(),other3.getNeighbor(0,1)));  
+           moves.add(new Castle(this,(Rook)other3.getPiece(),other3.getNeighbor(0,1),K2.getNeighbor(-7,-2)));  
          }
          if(other4.getPiece() instanceof Rook)
          {
-           moves.add(new Castle(this,(Rook)other4.getPiece(),other4.getNeighbor(0,-1)));   
-         }
+           moves.add(new Castle(this,(Rook)other4.getPiece(),other4.getNeighbor(0,-1),K2.getNeighbor(-7,1)));   
+         } 
       }
       return moves;
       
