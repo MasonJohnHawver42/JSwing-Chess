@@ -23,6 +23,10 @@ public class ChessTile extends Tile<ChessBoard>
     public Piece getPiece() { return piece; }
     public boolean getColor() { return color; }
     
+    public String getName() {
+        return Character.toString((char)(col + 97)) + Integer.toString(8 - row);
+    }
+    
     public Piece removePiece() {
         Piece removed = piece;
         setIcon(null);
@@ -38,8 +42,9 @@ public class ChessTile extends Tile<ChessBoard>
     }
     
     public void select() { this.getBoard().getGame().select(this); }
+    public void unselect() { this.setState(new UnSelected(this)); this.getBoard().getGame().select(null); }
     
-    private class UnSelected extends State<ChessTile> {
+    public class UnSelected extends State<ChessTile> {
         public UnSelected(ChessTile tile) { super(tile); }
         
         public void start() { 
@@ -58,14 +63,13 @@ public class ChessTile extends Tile<ChessBoard>
             
             if ( selected != null ) { selected.setState(new UnSelected(selected)); }
             
-            if (tile.getPiece() != null) {
-                if (game.getTurn().getColor() == tile.getPiece().getColor()) {
-                    tile.setState(new Selected(tile));
+            if (game.hist.atCurrent()) {
+                if (tile.getPiece() != null) {
+                    if (game.getTurn().getColor() == tile.getPiece().getColor()) {
+                        tile.setState(new Selected(tile));
+                    }
                 }
-                
-                
             }
-            
             
         }
         public void terminate() { super.terminate(); }
@@ -97,9 +101,8 @@ public class ChessTile extends Tile<ChessBoard>
                 }
             }
         }
-        public void update(ActionEvent e) { 
-            
-            tile.setState(new UnSelected(tile)); 
+        public void update(ActionEvent e) {
+            tile.setState(new UnSelected(tile));
         }
             
         public void terminate() { 
@@ -139,6 +142,21 @@ public class ChessTile extends Tile<ChessBoard>
         
         private Move move;
     }
+    
+    private class Angry extends UnSelected {
+    
+        public Angry(ChessTile t) {
+            super(t);
+        }
+        
+        public void start() { 
+            super.start();
+            
+            tile.setBackground(new Color(230, 45, 45));
+        }
+    }
+    
+    public void anger() { this.setState(new Angry(this)); }
    
     
     Piece piece;

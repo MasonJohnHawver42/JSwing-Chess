@@ -18,14 +18,11 @@ public class Chess extends Game
         
         turn = light_player;
         
-        hist = new History();
+        hist = new History(this);
         board = new ChessBoard(this);
-        
-        
     }
     
     public void init() {
-        
         add(board);
         add(hist);
     }

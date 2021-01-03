@@ -7,19 +7,36 @@ public class Promotion extends Move
     public Promotion(Pawn p, ChessTile t)
     {
         super(p, t);
-        move = new NormalMove(p, t);
+        
+        pawn = p;
+        from = pawn.getTile();
+        
+        to = t;
     }
     
     public void Do() {
-        move.Do();
-        if (promotion == null) { promote(); }
+        
+        from.removePiece();
+        pawn.capture();
+        
+        promotion = new Queen(pawn.owner);
+        promotion.setTile(to);
+        to.placePiece(promotion);
+        
     }
     public void Undo() {
-        move.Undo();
+        promotion.capture();
+        to.removePiece();
+        
+        from.placePiece(pawn);
+        pawn.redeem();
     }
     
     private Piece promotion;
-    private NormalMove move;
+    private Piece pawn;
+    
+    private ChessTile from;
+    private ChessTile to;
     
     //gui stuff
     private JButton b1, b2, b3, b4;
@@ -42,7 +59,7 @@ public class Promotion extends Move
                 //promote.setLocation((this.getWidth()-promote.getWidth())/2,60);
                 //frm.add(promote);
                 
-                String prefix = (move.piece.getColor() ? "D" : "L");
+                String prefix = (pawn.getColor() ? "D" : "L");
                 b1 = new JButton(Piece.getIcon(prefix  + "Q"));
                 b2 = new JButton(Piece.getIcon(prefix  + "R"));
                 b3 = new JButton(Piece.getIcon(prefix  + "Kn"));
@@ -76,4 +93,9 @@ public class Promotion extends Move
                 frm.pack();
                 frm.setVisible(true);
     }
+    
+    public String getNotation() {
+        return to.getName();
+    }
+    
 }

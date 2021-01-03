@@ -1,7 +1,3 @@
-package BoardGames;
-
- 
-
 import java.util.*;
 public class King extends Piece
 {
@@ -45,9 +41,9 @@ public class King extends Piece
       
       if(getTile().getCol() == 4 && getTile().getRow() == 7)
       {
-         if(other1.getPiece() instanceof Rook && Kn1.empty() == true && Bi1.empty() == true && Q1.empty() == true)  
+         if(other1.getPiece() instanceof Rook && Kn1.empty() == true && Bi1.empty() == true && Q2.empty() == true)  
          {
-           moves.add(new Castle(this,(Rook)other1.getPiece(),other1.getNeighbor(0,1),K2.getNeighbor(0,-2)));
+           moves.add(new Castle(this,(Rook)other1.getPiece(),other1.getNeighbor(0,1),K2.getNeighbor(0,-1)));
          }  
          if(other2.getPiece() instanceof Rook && Kn2.empty() == true && Bi2.empty() == true)
          {
@@ -57,9 +53,9 @@ public class King extends Piece
       
       else if(getTile().getCol() == 4 && getTile().getRow() == 0)
       {
-         if(other3.getPiece() instanceof Rook && Kn3.empty() == true && Bi3.empty() == true && Q2.empty() == true)
+         if(other3.getPiece() instanceof Rook && Kn3.empty() == true && Bi3.empty() == true && Q1.empty() == true)
          {
-           moves.add(new Castle(this,(Rook)other3.getPiece(),other3.getNeighbor(0,1),K2.getNeighbor(-7,-2)));  
+           moves.add(new Castle(this,(Rook)other3.getPiece(),other3.getNeighbor(0,1),K2.getNeighbor(-7,-1)));  
          }
          if(other4.getPiece() instanceof Rook && Kn4.empty() == true && Bi4.empty() == true)
          {
@@ -70,4 +66,3 @@ public class King extends Piece
       
     }
 }
-

@@ -1,5 +1,6 @@
     
-import java.util.*; 
+import java.util.*;
+import static javax.swing.JOptionPane.showMessageDialog;
     
 public class Player {
     
@@ -35,19 +36,53 @@ public class Player {
         
         moves.clear();
         if (!checked) {
+            
+            King k = null;
+            for (Piece p: ps) { if (p instanceof King) { k = (King)p; } }
+
             for (Piece p: ps) {
                 
-                    moves.addAll(p.moves());
+                int x1 = p.getTile().getCol();
+                int y1 = p.getTile().getRow();
+                int x2 = k.getTile().getCol();
+                int y2 = k.getTile().getRow();
                 
+                if ( x1 == x2 || y1 == y2 || Math.abs((float)(y2 - y1) / (float)(x2 - x1)) == 1) {
+                   LinkedList<Piece> eps = new LinkedList(opponnet.pieces);
+                   LinkedList<Move> pmoves = p.moves();
+                       
+                   for (Move m : pmoves) {
+                       
+                       m.Do();
+                       
+                       boolean addit = true;
+                       
+                       for (Piece ep : eps) {
+                           for (Move em : ep.moves()) {
+                               if (em instanceof NormalMove) {
+                                   if (((NormalMove)em).captured == k) {
+                                        addit = false;
+                                        break;
+                                   }
+                               }
+                           }
+                           if (!addit) { break; }
+                       }
+                       if (addit) { moves.add(m); }
+                       m.Undo();
+                   }
+                }
+                else { moves.addAll(p.moves()); }
+            }
+            
+            if (moves.size() == 0) { 
+                showMessageDialog(game, "Draw", null, 0, Piece.getIcon((color ? "LK" : "DK")));
             }
         }
         else {
-            System.out.println(checkors);
             if (checkors.size() == 1) {
                 
                 Piece checkor = checkors.get(0);
-                
-                System.out.println(checkor);
                 
                 for (Piece p: ps) {
                     
@@ -91,31 +126,27 @@ public class Player {
                        LinkedList<Piece> eps = new LinkedList(opponnet.pieces);
                        
                        for (Move m : pmoves) {
-                           if (m instanceof NormalMove) {
-                               m.Do();
-                               
-                               boolean addit = true;
-                               
-                               
-                               for (Piece ep : eps) {
-                                   for (Move em : ep.moves()) {
-                                       if (em instanceof NormalMove) {
-                                           if (((NormalMove)em).captured == p) {
-                                                addit = false;
-                                                break;
-                                           }
+                           
+                           m.Do();
+                           
+                           boolean addit = true;
+                           
+                           for (Piece ep : eps) {
+                               for (Move em : ep.moves()) {
+                                   if (em instanceof NormalMove) {
+                                       if (((NormalMove)em).captured instanceof King) {
+                                            addit = false;
+                                            break;
                                        }
                                    }
-                                   if (!addit) { break; }
                                }
-                               if (addit) { moves.add(m); }
-                               m.Undo();
+                               if (!addit) { break; }
                            }
+                           if (addit) { moves.add(m); }
+                           m.Undo();
                        }
+                       
                     }
-                    
-                    
-                
                 }
             }
             
@@ -123,31 +154,46 @@ public class Player {
                 checked = false;
                 checkors.clear();
             }
+            else {
+                System.out.println("CheckMate");
+                showMessageDialog(game, "CheckMate", null, 0, Piece.getIcon(checkors.get(0)));
+            }
         }
         
+        thinking = true;
     }
     
     public void makeMove(Move m) {
-        try {
-            game.hist.add(m);
+        if (game.hist.atCurrent()) {
             m.Do();
-            endTurn();
             
-        } catch(RuntimeException e) {}
+            LinkedList<Piece> ps = new LinkedList(pieces);
+            for (Piece p: ps) {
+                for (Move move : p.moves()) {
+                   if (move instanceof NormalMove) {
+                       if (((NormalMove)move).captured instanceof King) { 
+                           if (!opponnet.checked()) { opponnet.check(); ((NormalMove)move).to.anger(); }
+                           opponnet.checkors.add(p);
+                        }
+                   }
+                }
+            }
+            
+            King k = null;
+            for (Piece p: ps) { if (p instanceof King) { k = (King)p; } }
+            k.tile.unselect();
+            
+            if (opponnet.checked) {
+                m = new Check(m);
+            }
+            
+            
+            game.hist.add(m);
+            endTurn();
+        }
     }
     
     public void endTurn() {
-        
-        for (Piece p: pieces) {
-            for (Move move : p.moves()) {
-               if (move instanceof NormalMove) {
-                   if (((NormalMove)move).captured instanceof King) { 
-                       if (!opponnet.checked()) { opponnet.check(); }
-                       opponnet.checkors.add(p);
-                    }
-               }
-            }
-        }
         
         game.turn = opponnet;
         opponnet.beginTurn();
@@ -162,6 +208,7 @@ public class Player {
     private int points;
     
     private boolean checked;
+    public boolean thinking = false;
     
     public LinkedList<Piece> checkors;
     

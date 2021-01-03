@@ -4,9 +4,11 @@ public class Pawn extends Piece
 {
     public Pawn(Player o) {
         super(o);
-        name = "P";
+        name = "p";
         value = 1;
     }
+    
+    public String getName() { return ""; }
     
     //fixed fully working
     protected LinkedList<Move> moves() { 

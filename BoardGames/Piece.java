@@ -43,13 +43,13 @@ abstract public class Piece
     static public void loadIcons() {
         icons = new HashMap<String, Icon>();
         icons.put("LP", new ImageIcon("assets/LightPawn.png") );
-        icons.put("LKn",new ImageIcon("assets/LightKnight.png") );
+        icons.put("LKN",new ImageIcon("assets/LightKnight.png") );
         icons.put("LB", new ImageIcon("assets/LightBishop.png") );
         icons.put("LR", new ImageIcon("assets/LightRook.png") );
         icons.put("LK", new ImageIcon("assets/LightKing.png") );
         icons.put("LQ", new ImageIcon("assets/LightQueen.png") );
         icons.put("DP", new ImageIcon("assets/DarkPawn.png") );
-        icons.put("DKn",new ImageIcon("assets/DarkKnight.png") );
+        icons.put("DKN",new ImageIcon("assets/DarkKnight.png") );
         icons.put("DB", new ImageIcon("assets/DarkBishop.png") );
         icons.put("DR", new ImageIcon("assets/DarkRook.png") );
         icons.put("DK", new ImageIcon("assets/DarkKing.png") );
@@ -69,11 +69,11 @@ abstract public class Piece
     }
     
     static public Icon getIcon(Piece p) { 
-        if(p != null) { return icons.get((p.getColor() ? "D" : "L") + p.name); }
+        if(p != null) { return getIcon((p.getColor() ? "D" : "L") + p.name); }
         return null;
     }
     
-    static public Icon getIcon(String abbr) { return icons.get(abbr); }
+    static public Icon getIcon(String abbr) { return icons.get(abbr.toUpperCase()); }
    
     
     static Map<String, Icon> icons;

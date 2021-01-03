@@ -7,8 +7,10 @@ public abstract class Move
         highlight = h;
     }
     
-    public void Do() { }
-    public void Undo() {}
+    abstract public void Do();
+    abstract public void Undo();
+    
+    abstract public String getNotation();
     
     public Piece manifestor;
     public ChessTile highlight;
