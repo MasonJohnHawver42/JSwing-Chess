@@ -1,4 +1,4 @@
 # Chess
 
-![alt text](http://url/to/img.png)
+![](https://github.com/MasonJohnHawver42/Board-Games/blob/main/ChessGame.png)
 
